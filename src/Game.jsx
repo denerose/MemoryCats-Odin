@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { CatCard } from "./CatCard";
@@ -97,14 +98,24 @@ function shuffleArray(array) {
     }
 }
 
-export function GameBoard() {
+export function GameBoard({ setScore }) {
+    const [clickedCats, setClickedCats] = useState([])
+
     shuffleArray(currentCats)
 
+    function handleClick(clickedCatID) {
+        if (!clickedCats.includes(clickedCatID)) {
+            setScore((score) => score + 1);
+            setClickedCats(() => [...clickedCats, clickedCatID])
+        }
+    }
+
     return (
-        <ul role="list" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+        <ul role="list" className="m-1 sm:m-20 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 max-md:">
             {currentCats.map((cat) => (
                 <li key={cat.id} className="relative">
-                    <CatCard url={cat.url} id={cat.id} />
+                    <CatCard url={cat.url} id={cat.id} handleClick={handleClick} />
+                    <button onClick={() => { handleClick(cat.id) }}>PET ME?</button>
                 </li>))}
         </ul>
 
