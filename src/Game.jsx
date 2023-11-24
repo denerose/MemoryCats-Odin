@@ -89,8 +89,16 @@ function updateCats() {
     const newCats = GetNewCats()
     newCats.forEach((newCat) => currentCats.push(newCat))
 }
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
 export function GameBoard() {
+    shuffleArray(currentCats)
 
     return (
         <ul role="list" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
