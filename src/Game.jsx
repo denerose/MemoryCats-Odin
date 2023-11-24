@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { CatCard } from "./CatCard";
+import { Modal } from "./Modal";
 
 const currentCats = [
     {
@@ -100,24 +101,38 @@ function shuffleArray(array) {
 
 export function GameBoard({ setScore }) {
     const [clickedCats, setClickedCats] = useState([])
+    const [gameInPlay, setGameInPlay] = useState(true)
+    const [openModal, setOpenModal] = useState(false)
 
-    shuffleArray(currentCats)
+
+    if (gameInPlay) { shuffleArray(currentCats) }
 
     function handleClick(clickedCatID) {
-        if (!clickedCats.includes(clickedCatID)) {
+        if (gameInPlay && !clickedCats.includes(clickedCatID)) {
             setScore((score) => score + 1);
             setClickedCats(() => [...clickedCats, clickedCatID])
+            if (currentCats.length === clickedCats.length) {
+                // updateCats()
+            }
+        }
+        else if (clickedCats.includes(clickedCatID)) {
+            setGameInPlay(() => setGameInPlay(false))
+            // updateCats()
+            setScore(0)
+            setOpenModal(true)
         }
     }
 
     return (
-        <ul role="list" className="m-1 sm:m-20 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 max-md:">
-            {currentCats.map((cat) => (
-                <li key={cat.id} className="relative">
-                    <CatCard url={cat.url} id={cat.id} handleClick={handleClick} />
-                    <button onClick={() => { handleClick(cat.id) }}>PET ME?</button>
-                </li>))}
-        </ul>
-
+        <div>
+            <Modal open={openModal} setOpen={setOpenModal} setGameInPlay={setGameInPlay} />
+            <ul role="list" className="m-1 sm:m-20 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 max-md:">
+                {currentCats.map((cat) => (
+                    <li key={cat.id} className="relative">
+                        <CatCard url={cat.url} id={cat.id} handleClick={handleClick} />
+                        <button onClick={() => { handleClick(cat.id) }}>PET ME?</button>
+                    </li>))}
+            </ul>
+        </div>
     )
 }
