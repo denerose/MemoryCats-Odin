@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import axios from "axios";
+import { CatCard } from './CatCard';
 
 
 function App() {
@@ -13,17 +12,18 @@ function App() {
 
   const [cats, setCats] = useState([]);
 
+  const fetchCats = async () => {
+    let response = await catAPI.get("?limit=10&mime_types=jpg");
+    setCats(response.data);
+  };
+
   useEffect(() => {
-    const fetchPost = async () => {
-      let response = await catAPI.get("?limit=10&mime_types=jpg");
-      setCats(response.data);
-    };
-    fetchPost();
+    fetchCats();
   }, []);
 
   return (
     <>
-      <h1 className="text-3xl font-bold">Cats</h1>
+      <h1 className="text-3xl font-bold">Memory Cats</h1>
       <ul role="list" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
         {cats.map((cat) => (
           <li key={cat.url} className="relative">
@@ -33,8 +33,6 @@ function App() {
                 <span className="sr-only">View details for {cat.id}</span>
               </button>
             </div>
-            <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{cat.id}</p>
-            <p className="pointer-events-none block text-sm font-medium text-gray-500">{cat.size}</p>
           </li>
         ))}
       </ul>
