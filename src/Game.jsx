@@ -4,68 +4,7 @@ import { useState, useEffect } from "react";
 import { CatCard } from "./CatCard";
 import { Modal } from "./Modal";
 
-const currentCats = [
-    {
-        id: "2kh",
-        url: "https://cdn2.thecatapi.com/images/2kh.jpg",
-        width: 500,
-        height: 333,
-    },
-    {
-        id: "5tl",
-        url: "https://cdn2.thecatapi.com/images/5tl.jpg",
-        width: 427,
-        height: 640
-    },
-    {
-        id: "71m",
-        url: "https://cdn2.thecatapi.com/images/71m.jpg",
-        width: 1071,
-        height: 1600
-    },
-    {
-        id: "7nu",
-        url: "https://cdn2.thecatapi.com/images/7nu.jpg",
-        width: 500,
-        height: 333
-    },
-    {
-        id: "aec",
-        url: "https://cdn2.thecatapi.com/images/aec.jpg",
-        width: 500,
-        height: 500
-    },
-    {
-        id: "ajv",
-        url: "https://cdn2.thecatapi.com/images/ajv.jpg",
-        width: 1900,
-        height: 2534
-    },
-    {
-        id: "aui",
-        url: "https://cdn2.thecatapi.com/images/aui.jpg",
-        width: 500,
-        height: 340
-    },
-    {
-        id: "dj6",
-        url: "https://cdn2.thecatapi.com/images/dj6.jpg",
-        width: 1024,
-        height: 768,
-    },
-    {
-        id: "MTU4NDY0MQ",
-        url: "https://cdn2.thecatapi.com/images/MTU4NDY0MQ.jpg",
-        width: 3888,
-        height: 2592,
-    },
-    {
-        id: "MTc5NDg0Ng",
-        url: "https://cdn2.thecatapi.com/images/MTc5NDg0Ng.jpg",
-        width: 600,
-        height: 450,
-    }
-]
+let currentCats = []
 
 export function GetNewCats() {
     const catAPI = axios.create({
@@ -87,10 +26,10 @@ export function GetNewCats() {
 }
 
 function updateCats() {
-    currentCats.length = 0
     const newCats = GetNewCats()
-    newCats.forEach((newCat) => currentCats.push(newCat))
+    currentCats = newCats
 }
+
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -104,7 +43,7 @@ export function GameBoard({ setScore }) {
     const [gameInPlay, setGameInPlay] = useState(true)
     const [openModal, setOpenModal] = useState(false)
 
-
+    updateCats()
     if (gameInPlay) { shuffleArray(currentCats) }
 
     function handleClick(clickedCatID) {
