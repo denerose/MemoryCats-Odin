@@ -119,6 +119,7 @@ export function GameBoard({ setScore }) {
             setGameInPlay(() => setGameInPlay(false))
             // updateCats()
             setScore(0)
+            setClickedCats([])
             setOpenModal(true)
         }
     }
@@ -126,11 +127,11 @@ export function GameBoard({ setScore }) {
     return (
         <div>
             <Modal open={openModal} setOpen={setOpenModal} setGameInPlay={setGameInPlay} />
-            <ul role="list" className="m-1 sm:m-20 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 max-md:">
+            <ul role="list" className="m-1 sm:mx-20 sm:my-2 p-3 rounded-lg bg-slate-50/10 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-5 xl:gap-x-5 max-md:">
                 {currentCats.map((cat) => (
-                    <li key={cat.id} className="relative">
+                    <li key={cat.id} className="relative grid-cols-1 place-items-stretch gap-2 space-x-1">
                         <CatCard url={cat.url} id={cat.id} handleClick={handleClick} />
-                        <button onClick={() => { handleClick(cat.id) }}>PET ME?</button>
+                        <button className="m-2 min-w-full place-self-center bg-white/40 text-gray-800 border border-grey-800 hover:bg-gray-800 hover:text-white font-bold py-2 px-4 rounded-full" onClick={() => { handleClick(cat.id) }}>PET ME?</button>
                     </li>))}
             </ul>
         </div>

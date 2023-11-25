@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css'
 import { GameBoard } from './Game';
 import { ScoreBoard } from './Score';
+import { Footer } from './footer';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <h1 className="py-2 text-gray-900 text-5xl font-extrabold text-center">Memory Cats</h1>
       < ScoreBoard score={currentScore} maxScore={maxScore} />
       < GameBoard setScore={setCurrentScore} />
+      < Footer />
     </>
   )
 }
