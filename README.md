@@ -1,8 +1,19 @@
-# React + Vite
+# Memory Cats
+2nd React course project for [The Odin Project](https://www.theodinproject.com/lessons/node-path-react-new-memory-card) - Node/JS Path
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Using: React, Axios (for API call) and Tailwind.css
 
-Currently, two official plugins are available:
+## Current State
+- Game calls cats.api for 10 new cat cards on mount
+- Player can click on cat image or button
+- If cat has been clicked before game ends
+- Modal to re-start the game (with same cats)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Planned/Future Tasks 
+- Add button to refresh with new cats during game (requires changes to useEffect
+
+## Learning Goals
+- React and useState hooks
+- API get calls in React and useEffect hooks
+- Basics of Tailwind and css frameworks
+- Basics of Axios
